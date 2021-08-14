@@ -71,7 +71,7 @@ export class BugsController extends BaseController {
     try {
       const user = req.userInfo
       req.body.id = req.params.id
-      req.body = req.body.closed === false
+      req.body = req.body.closed === true
       const bug = await bugsService.edit(req.params.id, user)
       res.send(bug)
     } catch (error) {

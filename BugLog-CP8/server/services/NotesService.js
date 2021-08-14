@@ -11,10 +11,18 @@ class NotesService {
     return await dbContext.Notes.find(query).populate('creator', 'name picture')
   }
 
-  async getById(noteId) {
-    const note = await dbContext.Notes.findById(noteId).populate('creator', 'name picture')
+  // async getById(id, userId) {
+  //   const note = await dbContext.Notes.findById(noteId).populate('creator', 'name picture')
+  //   if (!note) {
+  //     throw new BadRequest('Invalid Id')
+  //   }
+  //   return note
+  // }
+
+  async getById(id) {
+    const note = await dbContext.Notes.findById(id).populate('creator', 'name picture')
     if (!note) {
-      throw new BadRequest('Invalid Id')
+      throw new BadRequest('No Note Available')
     }
     return note
   }
@@ -23,9 +31,12 @@ class NotesService {
     const note = await this.getById(id)
     if (user.id === note.creatorId.toString()) {
       await this.getById(id)
-      return await dbContext.Notes.findByIdAndDelete(id)
+      return await dbContext.Notes.findOneAndDelete({ _id: id, creatorId: user })
     }
   }
+  // async destroy(noteId, userId) {
+  //   return await dbContext.Bugs.findOneAndDelete({ _id: noteId, creatorId: userId })// ?
+  // }
 }
 
 export const notesService = new NotesService()
