@@ -14,7 +14,7 @@ class BugsService {
   async getById(bugId) {
     const bug = await dbContext.Bugs.findById(bugId).populate('creator', 'name picture')
     if (!bug) {
-      throw new BadRequest('Invalid Id')
+      throw new BadRequest('Invalid Id or Not Found')
     }
     return bug
   }

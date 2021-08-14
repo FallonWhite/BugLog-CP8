@@ -1,6 +1,7 @@
 import { Auth0Provider } from '@bcwdev/auth0provider'
 import { bugsService } from '../services/BugsService'
 import BaseController from '../utils/BaseController'
+import { notesService } from '../services/NotesService'
 
 export class BugsController extends BaseController {
   constructor() {
@@ -11,7 +12,7 @@ export class BugsController extends BaseController {
       .post('', this.create) // Creates a new bug
       .get('', this.getAll) //  returns a list of all the bugs
       .get('/:id', this.getById) // returns a single bug with all it's data
-      // .get('/:id/notes', this.getNotesByBug) // returns all notes for a given bug
+      .get('/:id/notes', this.getNotesByBug) // returns all notes for a given bug
       .put('/:id', this.edit) // Edits bug (Restricted when the bug is closed)
       // .delete('/:id', this.destroy) //Changes status of bug from open to close (Do not allow a bug to be deleted, only change the status of the bug to closed)
   }
@@ -45,13 +46,15 @@ export class BugsController extends BaseController {
     }
   }
 
-  // async getNotesByBug(req, res, next) {
-  //   try {
-  //     const note = await notesService.getAll({ creatorId: req.userInfo.id })
-  //     res.send(note)
-  //   } catch (error) {
-  //     next(error)
-  //   }
+  async getNotesByBug(req, res, next) {
+    try {
+      const note = await notesService.getAll({ creatorId: req.userInfo.id })
+      res.send(note)
+    } catch (error) {
+      next(error)
+    }
+  }
+
   async edit(req, res, next) {
     try {
       delete req.body.closed
