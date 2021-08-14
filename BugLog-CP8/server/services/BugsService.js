@@ -29,6 +29,18 @@ class BugsService {
       return bug
     }
   }
+
+  async destroy(body, id, user) {
+    const bug = await this.getById(id)
+    if (user.id === bug.creatorId.toString()) {
+      // return await dbContext.Bugs.findByIdAndUpdate(body.id, body, { new: true, runValidators: false })
+      const bug = await dbContext.Bugs.findByIdAndUpdate(body.id, body, { new: false, runValidators: true })
+      if (!bug) {
+        throw new BadRequest('Close Unsuccessful')
+      }
+      return bug
+    }
+  }
 }
 
 export const bugsService = new BugsService()
