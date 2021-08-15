@@ -48,6 +48,7 @@ export default {
   },
   components: {
     BugCard
+    BugModal
   }
 }
 </script>

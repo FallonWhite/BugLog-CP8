@@ -22,7 +22,7 @@
         {{ bugProp.closedDate }}
       </p>
       <div class="align-self-end" v-if="account.id === bugProp.creatorId">
-        <button class="btn-sm btn-dark" style="background-color: brown" @click="destroyProject">
+        <button class="btn-sm btn-dark" style="background-color: grey" @click="destroy">
           Close Bug
         </button>
       </div>
