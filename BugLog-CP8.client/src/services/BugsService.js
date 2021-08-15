@@ -14,7 +14,7 @@ class BugsService {
   async getAll() {
     const res = await api.get('/bugs')
     logger.log(res.data)
-    AppState.cars = res.data
+    AppState.bugs = res.data
   }
 
   async getById(id) {
