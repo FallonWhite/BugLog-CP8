@@ -3,6 +3,7 @@
 @import "./_transitions.scss";
 @import "./_utilities.scss";
 @import "./_overrides.scss";
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 
 :root {
   --grey: #f6f6f6;
@@ -15,10 +16,18 @@
   background-color: $body-bg;
   overflow-x: hidden;
   scroll-behavior: smooth;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: x-large;
 }
 
 main {
   flex-grow: 1;
   display: flex;
   align-items: stretch;
+  min-height: 100vh;
+  background-image: url('./assets/img/pinkBugs.jpg');
+  background-position: center;
+  background-size: cover;
 }
+
+

@@ -7,7 +7,7 @@
   </main>
   <footer>
     <div class="bg-dark text-light text-center p-4">
-      Made with 💖 by CodeWorks
+      🐛🐜🐛🐜🐛🤍Made by Fallon🤍🐛🐜🐛🐜🐛
     </div>
   </footer>
 </template>
@@ -26,5 +26,15 @@ export default {
 </script>
 <style lang="scss">
 @import "./assets/scss/main.scss";
+
+.main {
+flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-image: url('./assets/img/pinkBugs.jpg');
+  background-position: center;
+  background-size: cover;
+}
 
 </style>
