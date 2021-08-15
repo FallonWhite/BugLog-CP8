@@ -4,6 +4,10 @@
   </header>
   <main>
     <router-view />
+    <div class="modals">
+      <BugModal />
+      <!-- <NoteModal /> -->
+    </div>
   </main>
   <footer>
     <div class="bg-dark text-light text-center p-4">

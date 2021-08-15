@@ -2,7 +2,7 @@
   <!-- <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center"> -->
   <div class="container-fluid">
     <div class="row mt-4">
-      <div class="col-12 text-right">
+      <div class="col-12 text-center">
         <button class="btn btn-outline-secondary btn-info text-dark mr-5" data-target="#bug-modal" data-toggle="modal">
           <b>Create Bug</b>
         </button>
@@ -48,7 +48,6 @@ export default {
   },
   components: {
     BugCard
-    BugModal
   }
 }
 </script>
