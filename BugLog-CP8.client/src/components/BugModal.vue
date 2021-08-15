@@ -9,7 +9,7 @@
   >
     <div class="modal-dialog" role="document">
       <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header bg-dark">
           <h5 class="modal-title" id="bugModalLabel">
             New Bug
           </h5>
@@ -17,7 +17,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body bg-dark">
           <form @submit.prevent="create">
             <div class="form-group">
               <label for="bug.title" class="col-form-label">Title:</label>
@@ -27,7 +27,7 @@
               <label for="bug.description" class="col-form-label">Description:</label>
               <textarea v-model="state.newBug.description" class="form-control" placeholder="Bug Description..." id="bug.description"></textarea>
             </div>
-            <button type="button" class="btn btn-outline-dark btn-warning m-2" data-dismiss="modal">
+            <button type="button" class="btn btn-outline-dark btn-secondary m-2" data-dismiss="modal">
               <b><i>Cancel</i></b>
             </button>
             <button type="submit" class="btn btn-outline-dark btn-info">
@@ -74,5 +74,8 @@ export default {
   height: 50vh;
   overflow-y: auto;
   background-color: dark;
+}
+.hoverable {
+  cursor: pointer;
 }
 </style>
