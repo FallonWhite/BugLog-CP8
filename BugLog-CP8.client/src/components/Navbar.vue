@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-      <div class="d-flex flex-column align-items-center">
+      <div class="d-flex flex-column align-items-center m-2">
         <img
           alt="logo"
           src="../assets/img/Buggie.png"
@@ -22,12 +22,17 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
+        <li class="nav-item m-1 mr-4">
           <router-link :to="{ name: 'Home' }" class="nav-link">
-            Home
+            Home of The Bugs
           </router-link>
         </li>
-        <li class="nav-item">
+        <li class="nav-item m-1 mr-4">
+          <router-link :to="{ name: 'Bug Details' }" class="nav-link">
+            Bug Details
+          </router-link>
+        </li>
+        <li class="nav-item m-1">
           <router-link :to="{ name: 'About' }" class="nav-link">
             About
           </router-link>
@@ -116,11 +121,13 @@ export default {
 }
 a:hover {
   text-decoration: none;
+  transform: scale(1.2);
 }
 .nav-link{
   text-transform: uppercase;
+  text-shadow: 1px 1px pink;
 }
 .nav-item .nav-link.router-link-exact-active{
-  color: var(--primary);
+  color: var(--info);
 }
 </style>
