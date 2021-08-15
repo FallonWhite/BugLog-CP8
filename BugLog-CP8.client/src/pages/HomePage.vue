@@ -37,7 +37,7 @@ export default {
   setup() {
     onMounted(async() => {
       try {
-        await bugsService.getBugs()
+        await bugsService.getAll()
       } catch (error) {
         logger.log(error)
       }
