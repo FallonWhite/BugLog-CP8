@@ -8,11 +8,11 @@ export class BugsController extends BaseController {
     super('api/bugs')
     this.router
       // NOTE: Beyond this point all routes require Authorization tokens (the user must be logged in)
+      .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.create) // Creates a new bug
       .get('', this.getAll) //  returns a list of all the bugs
       .get('/:id', this.getById) // returns a single bug with all it's data
       .get('/:id/notes', this.getNotesByBug) // returns all notes for a given bug
-      .use(Auth0Provider.getAuthorizedUserInfo)
       .put('/:id', this.edit) // Edits bug (Restricted when the bug is closed)
       .delete('/:id', this.destroy) // Changes status of bug from open to close (Do not allow a bug to be deleted, only change the status of the bug to closed) I'm going to attemot to treat this is an edit essentially, to start
   }
