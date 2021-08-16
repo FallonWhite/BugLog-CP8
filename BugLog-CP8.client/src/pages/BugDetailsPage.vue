@@ -1,5 +1,5 @@
 <template>
-  <div class="bugDetails">
+  <div class="bugDetailsPage">
     <div class="d-flex flex-column align-items-center mt-3">
       <img
         alt="logo"
@@ -7,12 +7,16 @@
         height="150"
       />
       <h1 class="m-5 mt-1" style="text-align: center">
-        This is the Bug Details page
+        Welcome the Bug Details page
       </h1>
+      {{ bug.title }}
+      <br />
+      {{ bug.description }}
     </div>
-    <!-- <BugCard v-for="b in bugs" :key="b.id" :bug-prop="b" /> -->
   </div>
 </template>
+
+    <!-- <BugCard v-for="b in bugs" :key="b.id" :bug-prop="b" /> -->
 
 <script>
 // export default {
