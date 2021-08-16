@@ -34,7 +34,7 @@ export class NotesController extends BaseController {
 
   async getById(req, res, next) {
     try {
-      const note = await notesService.getById(req.params.id)
+      const note = await notesService.getById({ creatorId: req.userInfo.id })
       res.send(note)
     } catch (error) {
       next(error)
