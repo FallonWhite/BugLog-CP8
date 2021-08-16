@@ -14,7 +14,7 @@ export class BugsController extends BaseController {
       .get('/:id', this.getById) // returns a single bug with all it's data
       .get('/:id/notes', this.getNotesByBug) // returns all notes for a given bug
       .put('/:id', this.edit) // Edits bug (Restricted when the bug is closed)
-      .delete('/:id', this.destroy) // Changes status of bug from open to close (Do not allow a bug to be deleted, only change the status of the bug to closed) I'm going to attemot to treat this is an edit essentially, to start
+      .delete('/:id', this.closeBug) // Changes status of bug from open to close (Do not allow a bug to be deleted, only change the status of the bug to closed) I'm going to attemot to treat this is an edit essentially, to start
   }
 
   async create(req, res, next) {
@@ -67,21 +67,12 @@ export class BugsController extends BaseController {
     }
   }
 
-  // async destroy(req, res, next) {
-  //   try {
-  //     const user = req.userInfo
-  //     req.body.id = req.params.id
-  //     req.body = req.body.closed === true
-  //     const bug = await bugsService.edit(req.params.id, user)
-  //     res.send(bug)
-  //   } catch (error) {
-  //     next(error)
-  //   }
-  // }
-  async destroy(req, res, next) {
+  async closeBug(req, res, next) {
     try {
-      req.body.creatorId = req.userInfo.id
-      const bug = await bugsService.destroy(req.params.id, req.body)
+      const user = req.userInfo
+      req.body.id = req.params.id
+      req.body.closed = true
+      const bug = await bugsService.destroy(req.body, user)
       res.send(bug)
     } catch (error) {
       next(error)
