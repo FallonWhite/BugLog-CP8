@@ -3,7 +3,7 @@
   <div class="container-fluid">
     <div class="row mt-4">
       <div class="col-12 text-center">
-        <button class="btn btn-outline-secondary btn-info text-dark mr-5" data-target="#bug-modal" data-toggle="modal">
+        <button class="btn-lrg btn-outline-secondary btn-info text-dark mr-5" data-target="#bug-modal" data-toggle="modal">
           <b>Create Bug</b>
         </button>
       </div>
