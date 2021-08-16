@@ -11,7 +11,7 @@
   </main>
   <footer>
     <div class="bg-dark text-light text-center p-4">
-      🐛🐜🐛🐜🐛🤍Made by Fallon🤍🐛🐜🐛🐜🐛
+      🐛🐜🐛🤍Made by Fallon🤍🐛🐜🐛
     </div>
   </footer>
 </template>

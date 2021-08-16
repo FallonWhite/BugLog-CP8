@@ -11,8 +11,8 @@ class BugsService {
     return await dbContext.Bugs.find(query).populate('creator', 'name picture')
   }
 
-  async getById(bugId) {
-    const bug = await dbContext.Bugs.findById(bugId).populate('creator', 'name picture')
+  async getById(id) {
+    const bug = await dbContext.Bugs.findById(id).populate('creator', 'name picture')
     if (!bug) {
       throw new BadRequest('Invalid Id or Not Found')
     }
@@ -30,16 +30,25 @@ class BugsService {
     }
   }
 
-  async destroy(body, id, user) {
+  // async destroy(body, id, user) {
+  //   const bug = await this.getById(id)
+  //   if (user.id === bug.creatorId.toString()) {
+  //     // return await dbContext.Bugs.findByIdAndUpdate(body.id, body, { new: true, runValidators: false })
+  //     const bug = await dbContext.Bugs.findByIdAndUpdate(body.id, body, { new: false, runValidators: true })
+  //     if (!bug) {
+  //       throw new BadRequest('Close Unsuccessful')
+  //     }
+  //     return bug
+  //   }
+  // }
+  async destroy(body, id) {
     const bug = await this.getById(id)
-    if (user.id === bug.creatorId.toString()) {
-      // return await dbContext.Bugs.findByIdAndUpdate(body.id, body, { new: true, runValidators: false })
-      const bug = await dbContext.Bugs.findByIdAndUpdate(body.id, body, { new: false, runValidators: true })
-      if (!bug) {
-        throw new BadRequest('Close Unsuccessful')
-      }
-      return bug
+    if (bug.closed === true) {
+      throw new BadRequest('Already Closed; Cannot Edit or Close')
     }
+    body.closed = true
+    const closed = await dbContext.Bugs.findByIdAndUpdate(id, body)
+    return closed
   }
 }
 
