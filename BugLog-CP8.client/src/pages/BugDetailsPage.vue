@@ -10,6 +10,7 @@
         This is the Bug Details page
       </h1>
     </div>
+    <!-- <BugCard v-for="b in bugs" :key="b.id" :bug-prop="b" /> -->
   </div>
 </template>
 

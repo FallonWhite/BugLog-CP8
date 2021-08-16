@@ -1,30 +1,28 @@
 import { AppState } from '../AppState'
-import { api } from '../Services/AxiosService'
-import { router } from '../router'
+import { api } from './AxiosService'
 import { logger } from '../utils/Logger'
 
 class BugsService {
   async create(bug) {
-    const res = await api.post('/bugs', bug)
+    const res = await api.post('/api/bugs', bug)
     AppState.bugs.push(res.data)
-    router.push({ name: 'Bug Details', params: { id: res.data.id } })
     return res.data.id
   }
 
   async getAll() {
-    const res = await api.get('/bugs')
+    const res = await api.get('/api/bugs')
     logger.log(res.data)
     AppState.bugs = res.data
   }
 
   async getById(id) {
-    const res = await api.get('/bugs', id)
+    const res = await api.get('/api/bugs', id)
     logger.log(res.data)
     AppState.activeBug = res.data
   }
 
   async destroy(id) {
-    await api.delete('/bugs', id)
+    await api.delete('/api/bugs', id)
     AppState.bugs = AppState.bugs.filter(bug => bug.id !== id)
   }
 }

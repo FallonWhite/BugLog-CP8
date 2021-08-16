@@ -8,11 +8,11 @@ export class BugsController extends BaseController {
     super('api/bugs')
     this.router
       // NOTE: Beyond this point all routes require Authorization tokens (the user must be logged in)
-      .use(Auth0Provider.getAuthorizedUserInfo)
-      .post('', this.create) // Creates a new bug
       .get('', this.getAll) //  returns a list of all the bugs
       .get('/:id', this.getById) // returns a single bug with all it's data
       .get('/:id/notes', this.getNotesByBug) // returns all notes for a given bug
+      .use(Auth0Provider.getAuthorizedUserInfo)
+      .post('', this.create) // Creates a new bug
       .put('/:id', this.edit) // Edits bug (Restricted when the bug is closed)
       .delete('/:id', this.closeBug) // Changes status of bug from open to close (Do not allow a bug to be deleted, only change the status of the bug to closed) I'm going to attemot to treat this is an edit essentially, to start
   }
@@ -30,7 +30,7 @@ export class BugsController extends BaseController {
 
   async getAll(req, res, next) {
     try {
-      const bug = await bugsService.getAll({ creatorId: req.userInfo.id })
+      const bug = await bugsService.getAll()
       res.send(bug)
     } catch (error) {
       next(error)
@@ -48,7 +48,7 @@ export class BugsController extends BaseController {
 
   async getNotesByBug(req, res, next) {
     try {
-      const note = await notesService.getAll({ bug: req.userInfo.id }) // was using creatorId:
+      const note = await notesService.getAll({ bug: req.params.id }) // was using creatorId:
       res.send(note)
     } catch (error) {
       next(error)

@@ -27,11 +27,11 @@
             Home of The Bugs
           </router-link>
         </li>
-        <li class="nav-item m-1 mr-4">
-          <router-link :to="{ name: 'Bug Details' }" class="nav-link">
+        <!-- <li class="nav-item m-1 mr-4">
+          <router-link :to="{ name: 'BugDetailsPage'}" class="nav-link">
             Bug Details
           </router-link>
-        </li>
+        </li> -->
         <li class="nav-item m-1">
           <router-link :to="{ name: 'About' }" class="nav-link">
             About

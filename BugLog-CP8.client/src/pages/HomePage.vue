@@ -17,8 +17,8 @@
         </h1>
       </div> -->
     <div class="row">
-      <div class="col-4" v-for="b in bugs" :key="b.id">
-        <BugCard :bug="b" />
+      <div class="col-4">
+        <BugCard v-for="b in bugs" :key="b.id" :bug-prop="b" />
       </div>
     </div>
   </div>
