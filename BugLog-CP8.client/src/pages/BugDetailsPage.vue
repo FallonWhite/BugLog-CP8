@@ -1,8 +1,15 @@
 <template>
   <div class="bugDetails">
-    <h1 class="m-5">
-      This is the Bug Details page
-    </h1>
+    <div class="d-flex flex-column align-items-center mt-3">
+      <img
+        alt="logo"
+        src="../assets/img/bug-software.jpg"
+        height="150"
+      />
+      <h1 class="m-5 mt-1" style="text-align: center">
+        This is the Bug Details page
+      </h1>
+    </div>
   </div>
 </template>
 
@@ -47,6 +54,10 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style>
+.bugDetails {
+  text-align: center;
+  align-items: center;
+}
 
 </style>
