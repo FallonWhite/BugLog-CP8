@@ -1,19 +1,19 @@
 <template>
-  <div class="card col-md-12 text-white bg-info mb-3 m-4 justify-content-center" style="">
+  <div class="card col-12 text-white bg-info mb-3 m-4 mr-3 justify-content-center" style="">
     <div class="card-header text-center">
-      <h5 class="p-2" style="text-align: center; text-shadow: 2px 2px black; background-color: grey">
+      <h5 class="p-2" style="text-align: center; text-shadow: 1px 1px black; background-color: Black">
         <router-link :to="{ name: 'BugDetailsPage', params: {id: bugProp.id } }">
-          Bug
+          {{ bugProp.title }}
         </router-link>
         <!-- </router-link> -->
       </h5>
     </div>
     <div class="card-body">
       <h5 class="card-title">
-        {{ bugProp.title }}
+        <b class="text-dark">Title:</b> {{ bugProp.title }}
       </h5>
       <p class="card-text">
-        {{ bugProp.description }}
+        <b class="text-dark">Description:</b> <br />{{ bugProp.description }}
       </p>
       <!-- <p class="card-text">
         {{ bugProp.closed }}

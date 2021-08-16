@@ -17,7 +17,7 @@
         </h1>
       </div> -->
     <div class="row">
-      <div class="col-4">
+      <div class="col-11">
         <BugCard v-for="b in bugs" :key="b.id" :bug-prop="b" />
       </div>
     </div>
