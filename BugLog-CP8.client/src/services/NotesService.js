@@ -4,10 +4,11 @@ import Pop from '../utils/Notifier'
 import { bugsService } from './BugsService'
 
 class NotesService {
-  async create(note) {
-    const res = await api.post('api/notes', note)
+  async create(newNote) {
+    const res = await api.post('api/notes', newNote)
     AppState.activeNote = res.data
-    await this.getAll()
+    // await this.getAll()
+    await bugsService.getNotesByBugId(res.data.bugId)
     return res.data.id
   }
 

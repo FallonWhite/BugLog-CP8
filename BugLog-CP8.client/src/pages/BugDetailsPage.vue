@@ -7,7 +7,7 @@
       <BugCard :bug-prop="bug" v-if="bug.id" />
     </div>
     <div class="row">
-      <NoteCard v-for="n in notes" :note-prop="n" />
+      <NoteCard v-for="n in notes" :key="n.id" :note-prop="n" />
     </div>
     <NoteModal :bug-prop="bug" />
   </div>
