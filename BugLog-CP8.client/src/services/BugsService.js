@@ -1,6 +1,7 @@
 import { AppState } from '../AppState'
 import { api } from './AxiosService'
 import { logger } from '../utils/Logger'
+import Pop from '../utils/Notifier'
 
 class BugsService {
   async create(bug) {
@@ -21,9 +22,45 @@ class BugsService {
     AppState.activeBug = res.data
   }
 
-  async destroy(id) {
-    await api.delete('/api/bugs', id)
-    AppState.bugs = AppState.bugs.filter(bug => bug.id !== id)
+  async getNotesByBugId(bugId) {
+    try {
+      const res = await api.get('api/bugs', bugId + '/notes')
+      AppState.notes = res.data
+    } catch (error) {
+      Pop.toast(error, 'error')
+    }
+  }
+
+  async edit(bugId, edit) {
+    try {
+      await api.put('api/bugs', bugId, edit)
+    } catch (error) {
+      Pop.toast(error, 'error')
+    }
+  }
+
+  async getActiveBug(id) {
+    try {
+      const res = await api.get('api/bugs', id)
+      AppState.activeBug = res.data
+    } catch (error) {
+      Pop.toast(error, 'ERROR LOADING BUG')
+    }
+  }
+
+  async destroy(activeBug, id) {
+    try {
+      await api.destroy('api/bugs', id)
+      AppState.bugs = AppState.bugs.filter(bug => bug.id !== id)
+      if (activeBug.closed === false) {
+        AppState.activeBug.closed = true
+        Pop.toast('Close Successful', 'success')
+      } else {
+        Pop.toast('Close Failed', 'error')
+      }
+    } catch (error) {
+      Pop.toast(error, 'error')
+    }
   }
 }
 export const bugsService = new BugsService()

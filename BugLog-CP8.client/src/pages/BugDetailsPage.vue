@@ -9,10 +9,10 @@
       <h1 class="m-5 mt-1" style="text-align: center">
         Welcome the Bug Details page
       </h1>
-      {{ bug.title }}
-      <br />
-      {{ bug.description }}
+      <h4>{{ bug.title }}</h4>
+      <h5>{{ bug.description }}</h5>
     </div>
+    <NoteCard v-for="n in notes" :key="n.id" :note-prop="n" />
   </div>
 </template>
 

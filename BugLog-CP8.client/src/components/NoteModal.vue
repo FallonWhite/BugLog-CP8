@@ -1,7 +1,7 @@
 <template>
   <!-- Modal -->
   <div class="modal fade"
-       id="bug-modal"
+       id="note-modal"
        tabindex="-1"
        role="dialog"
        aria-labelledby="modelTitleId"
@@ -10,8 +10,8 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header bg-dark">
-          <h5 class="modal-title" id="bugModalLabel">
-            New Bug
+          <h5 class="modal-title" id="noteModalLabel">
+            New Note
           </h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -20,29 +20,29 @@
         <div class="modal-body bg-dark">
           <form @submit.prevent="create">
             <div class="form-group">
-              <label for="bug.title" class="col-form-label">Title:</label>
-              <input v-model="state.newBug.title"
+              <label for="note.title" class="col-form-label">Title:</label>
+              <input v-model="state.newNote.title"
                      type="text"
                      name="title"
                      class="form-control"
-                     placeholder="Bug Title..."
-                     id="bug.title"
+                     placeholder="Note Title..."
+                     id="note.title"
               >
             </div>
             <div class="form-group">
-              <label for="bug.description" class="col-form-label">Description:</label>
-              <textarea v-model="state.newBug.description"
+              <label for="note.body" class="col-form-label">Info:</label>
+              <textarea v-model="state.newBug.body"
                         class="form-control"
-                        name="description"
-                        placeholder="Bug Description..."
-                        id="bug.description"
+                        name="body"
+                        placeholder="Note Information..."
+                        id="note.body"
               ></textarea>
             </div>
             <button type="button" class="btn btn-outline-dark btn-secondary m-2" data-dismiss="modal">
               <b><i>Cancel</i></b>
             </button>
             <button type="submit" class="btn btn-outline-dark btn-info">
-              <b>Submit Bug</b>
+              <b>Add Note</b>
             </button>
           </form>
         </div>
@@ -52,39 +52,34 @@
     </div>
   </div>
 </template>
-
 <script>
-import { reactive } from '@vue/reactivity'
+import { notesService } from '../services/NotesService'
+import { reactive, computed } from 'vue'
+import { useRoute } from 'vue-router'
+import { AppState } from '../AppState'
 import { bugsService } from '../services/BugsService'
 import Pop from '../utils/Notifier'
 import $ from 'jquery'
-import { computed } from '@vue/runtime-core'
-import { AppState } from '../AppState'
-// import { useRoute } from 'vue-router'
-import { router } from '../router'
-import { logger } from '../utils/Logger'
 export default {
+  name: 'NoteModal',
   setup() {
-    // const router = useRouter()
+    const route = useRoute()
     const state = reactive({
-      user: computed(() => AppState.user),
-      bug: computed(() => AppState.bug),
-      newBug: {},
-      thisBug: computed(() => AppState.activeBug)
+      newNote: {},
+      thisNote: computed(() => AppState.activeNote)
     })
     return {
       state,
       async create() {
         try {
-          const bugId = await bugsService.create(state.newBug)
-          logger.log(state.newBug)
-          $('#bug-modal').modal('hide')
-          // jquery to close modal
-          router.push({ name: 'BugDetailsPage', params: { id: bugId } })
-          state.newBug = {}
-          Pop.toast('Bug Creation Successful', 'Success')
+          state.newNote.bugId = route.params.id
+          $('#note-modal').modal('toggle')
+          await notesService.create(state.newNote)
+          state.newNote = {}
+          bugsService.getNotesByBugId(route.params.id)
+          Pop.toast('Created Successfully', 'success')
         } catch (error) {
-          Pop.toast(error, 'creation error')
+          Pop.toast(error, 'error')
         }
       }
     }
@@ -92,6 +87,7 @@ export default {
 }
 </script>
 <style lang="scss">
+
 .modal-backdrop.show{
   opacity: 1!important;
   background:  var(--fade);

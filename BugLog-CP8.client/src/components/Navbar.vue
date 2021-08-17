@@ -28,7 +28,7 @@
           </router-link>
         </li>
         <!-- <li class="nav-item m-1 mr-4">
-          <router-link :to="{ name: 'BugDetailsPage'}" class="nav-link">
+          <router-link :to="{ name: 'BugDetails'}" class="nav-link">
             Bug Details
           </router-link>
         </li> -->

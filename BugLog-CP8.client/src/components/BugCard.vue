@@ -3,7 +3,7 @@
     <div class="card-header text-center">
       <h5 class="p-2" style="text-align: center; text-shadow: 1px 1px black; background-color: Black">
         <router-link :to="{ name: 'BugDetailsPage', params: {id: bugProp.id } }">
-          {{ bugProp.title }}
+          View Bud Details: {{ bugProp.title }}
         </router-link>
         <!-- </router-link> -->
       </h5>
@@ -12,28 +12,46 @@
       <h5 class="card-title">
         <b class="text-dark">Title:</b> {{ bugProp.title }}
       </h5>
+      <span>
+        <img class="rounded-circle creator-pic my-1" :src="bug.creator.picture" alt="">
+        {{ bug.creator.name }}
+      </span>
       <p class="card-text">
         <b class="text-dark">Description:</b> <br />{{ bugProp.description }}
       </p>
-      <!-- <p class="card-text">
+      <span class="bg-dark">Last update: {{ new Date (bug.updatedAt).toLocalString(time) }}</span>
+      <!-- //NOTE need to check on the update and time imput format. Not sure about the Sting for time -->
+      <span class="bg-dark"> Status:
+        <span v-if="bug.closed" class="text-light">
+          <span class="text-secondary"></span> 🔒Closed🔒</span>
+        <!-- // NOTE Toggle between closed and open needs to be created. Best method for this?? -->
+        <span v-else class="text-info">
+          <span class="text-success"></span> 🐛Open🐜
+        </span>
+        <!-- <p class="card-text">
         {{ bugProp.closed }}
       </p>
       <p class="card-text">
         {{ bugProp.closedDate }}
       </p> -->
-      <div class="align-self-end" v-if="account.id === bugProp.creatorId">
-        <button class="btn-sm btn-dark" style="background-color: grey" @click="destroy">
-          Close Bug
-        </button>
-      </div>
+        <div class="align-self-end" v-if="account.id === bugProp.creatorId">
+          <button class="btn-sm btn-dark" style="background-color: grey" @click="destroy">
+            Close Bug
+          </button>
+        </div>
+      </span>
     </div>
   </div>
-  <BugModal :bug="bugProp" />
+  <!-- <BugModal :bug="bugProp" /> -->
+  <!-- NOTE I can't test this while page is broken. The inspector erros don't give me enough info to follow to fix error. No success so far on getting time to appear with bug info. I don't understand what's wrong with the code/format. -->
 </template>
 
 <script>
+import { reactive } from '@vue/reactivity'
 import { computed } from '@vue/runtime-core'
 import { AppState } from '../AppState'
+import { useRoute } from 'vue-router'
+// import { router } from '../router'
 import Pop from '../utils/Notifier'
 import { bugsService } from '../services/BugsService'
 export default {
@@ -44,8 +62,21 @@ export default {
     }
   },
   setup(props) {
+    const route = useRoute()
+    const state = reactive({
+      account: computed(() => AppState.account)
+    })
     return {
-      account: computed(() => AppState.account),
+      state,
+      route,
+      time: {
+        year: '2-digit',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      },
       async destroy() {
         try {
           if (await Pop.confirm()) {
