@@ -3,7 +3,7 @@
     <div class="card-header text-center">
       <h5 class="p-2" style="text-align: center; text-shadow: 1px 1px black; background-color: Black">
         <router-link :to="{ name: 'BugDetailsPage', params: {id: bugProp.id } }">
-          View Bud Details: {{ bugProp.title }}
+          Bug: {{ bugProp.title }}
         </router-link>
         <!-- </router-link> -->
       </h5>
@@ -32,11 +32,9 @@
       <p class="card-text">
         {{ bugProp.closedDate }}
       </p> -->
-        <div class="align-self-end" v-if="account.id === bugProp.creatorId">
-          <button class="btn-sm btn-dark" style="background-color: grey" @click="destroy">
-            Close Bug
-          </button>
-        </div>
+        <button v-if="bugProp.creatorId === state.account.id" class="btn-lg btn-outline-dark btn-secondary m-5 p-2" style="" @click="destroy">
+          <b>Close Bug</b>
+        </button>
       </span>
     </div>
   </div>

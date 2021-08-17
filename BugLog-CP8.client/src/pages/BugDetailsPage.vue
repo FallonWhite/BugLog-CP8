@@ -1,22 +1,17 @@
 <template>
-  <div class="bugDetailsPage">
-    <div class="d-flex flex-column align-items-center mt-3">
-      <img
-        alt="logo"
-        src="../assets/img/bug-software.jpg"
-        height="150"
-      />
-      <h1 class="m-5 mt-1" style="text-align: center">
-        Welcome the Bug Details page
-      </h1>
-      <h4>{{ bug.title }}</h4>
-      <h5>{{ bug.description }}</h5>
+  <div class="bugDetailsPage container-fluid">
+    <div class="row">
+      <button class="btn-lrg btn-outline-secondary btn-info text-dark m-5" data-target="#note-modal" data-toggle="modal">
+        <b class="align-center">Add Note</b>
+      </button>
+      <BugCard :bug-prop="bug" v-if="bug.id" />
     </div>
-    <NoteCard v-for="n in notes" :key="n.id" :note-prop="n" />
+    <div class="row">
+      <NoteCard v-for="n in notes" :note-prop="n" />
+    </div>
+    <NoteModal :bug-prop="bug" />
   </div>
 </template>
-
-    <!-- <BugCard v-for="b in bugs" :key="b.id" :bug-prop="b" /> -->
 
 <script>
 // export default {
@@ -32,20 +27,24 @@ import { AppState } from '../AppState'
 import { bugsService } from '../services/BugsService'
 import { useRoute, useRouter } from 'vue-router'
 import { logger } from '../utils/Logger'
+import NoteModal from '../components/NoteModal.vue'
 
 export default {
+  components: { NoteModal },
   setup() {
     const route = useRoute()
     const router = useRouter()
     onMounted(async() => {
       try {
         await bugsService.getById(route.params.id)
+        await bugsService.getNotesByBugId(route.params.id)
       } catch (error) {
         logger.log(error)
       }
     })
     return {
       bug: computed(() => AppState.activeBug),
+      notes: computed(() => AppState.notes),
       async destroy() {
         try {
           await bugsService.destroy(route.params.id)

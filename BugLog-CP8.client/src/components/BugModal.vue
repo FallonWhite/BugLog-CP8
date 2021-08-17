@@ -26,7 +26,6 @@
                      name="title"
                      class="form-control"
                      placeholder="Bug Title..."
-                     id="bug.title"
               >
             </div>
             <div class="form-group">
@@ -35,7 +34,6 @@
                         class="form-control"
                         name="description"
                         placeholder="Bug Description..."
-                        id="bug.description"
               ></textarea>
             </div>
             <button type="button" class="btn btn-outline-dark btn-secondary m-2" data-dismiss="modal">

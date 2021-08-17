@@ -17,14 +17,14 @@ class BugsService {
   }
 
   async getById(id) {
-    const res = await api.get('/api/bugs', id)
+    const res = await api.get('/api/bugs/' + id)
     logger.log(res.data)
     AppState.activeBug = res.data
   }
 
   async getNotesByBugId(bugId) {
     try {
-      const res = await api.get('api/bugs', bugId + '/notes')
+      const res = await api.get('api/bugs/' + bugId + '/notes')
       AppState.notes = res.data
     } catch (error) {
       Pop.toast(error, 'error')

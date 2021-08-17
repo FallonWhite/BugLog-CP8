@@ -20,18 +20,8 @@
         <div class="modal-body bg-dark">
           <form @submit.prevent="create">
             <div class="form-group">
-              <label for="note.title" class="col-form-label">Title:</label>
-              <input v-model="state.newNote.title"
-                     type="text"
-                     name="title"
-                     class="form-control"
-                     placeholder="Note Title..."
-                     id="note.title"
-              >
-            </div>
-            <div class="form-group">
               <label for="note.body" class="col-form-label">Info:</label>
-              <textarea v-model="state.newBug.body"
+              <textarea v-model="state.newNote.body"
                         class="form-control"
                         name="body"
                         placeholder="Note Information..."
@@ -62,10 +52,18 @@ import Pop from '../utils/Notifier'
 import $ from 'jquery'
 export default {
   name: 'NoteModal',
-  setup() {
+  props: {
+    bugProp: {
+      type: Object,
+      required: true
+    }
+  },
+  setup(props) {
     const route = useRoute()
     const state = reactive({
-      newNote: {},
+      newNote: {
+        bug: props.bugProp.id
+      },
       thisNote: computed(() => AppState.activeNote)
     })
     return {
