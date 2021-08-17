@@ -13,18 +13,16 @@
         <b class="text-dark">Title:</b> {{ bugProp.title }}
       </h5>
       <span>
-        <img class="rounded-circle creator-pic my-1" :src="bug.creator.picture" alt="">
-        {{ bug.creator.name }}
+        <img class="rounded-circle creator-pic my-1" :src="bugProp.creator?.picture" alt="">
+        {{ bugProp.creator?.name }}
       </span>
       <p class="card-text">
         <b class="text-dark">Description:</b> <br />{{ bugProp.description }}
       </p>
-      <span class="bg-dark">Last update: {{ new Date (bug.updatedAt).toLocalString(time) }}</span>
-      <!-- //NOTE need to check on the update and time imput format. Not sure about the Sting for time -->
+      <span class="bg-dark">Last update: {{ new Date (bugProp.updatedAt).toLocaleString(time) }}</span>
       <span class="bg-dark"> Status:
-        <span v-if="bug.closed" class="text-light">
+        <span v-if="bugProp.closed" class="text-light">
           <span class="text-secondary"></span> 🔒Closed🔒</span>
-        <!-- // NOTE Toggle between closed and open needs to be created. Best method for this?? -->
         <span v-else class="text-info">
           <span class="text-success"></span> 🐛Open🐜
         </span>
