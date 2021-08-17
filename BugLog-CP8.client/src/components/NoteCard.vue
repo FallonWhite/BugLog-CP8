@@ -10,15 +10,15 @@
         <b class="text-dark">Title:</b> {{ noteProp.title }}
       </h5>
       <span>
-        <img class="rounded-circle creator-pic my-1" :src="note.creator.picture" alt="Note Creator Profile Picture">
-        {{ note.creator.name }}
+        <img class="rounded-circle creator-pic my-1" :src="noteProp.creator?.picture" alt="">
+        {{ noteProp.creator.name }}
       </span>
       <p class="card-text">
         <b class="text-dark">Info:</b> <br />
-        {{ note.body }}
+        {{ noteProp.body }}
       </p>
       <div class="align-self-end" v-if="account.id === bugProp.creatorId">
-        <button class="btn-sm btn-dark" style="background-color: grey" @click="destroy" v-if="state.user.isAuthenticated && state.account.id === note.creatorId">
+        <button class="btn-sm btn-dark" style="background-color: grey" @click="destroy" v-if="state.user.isAuthenticated && state.account.id === noteProp.creatorId">
           ❌Delete❌
         </button>
       </div>
