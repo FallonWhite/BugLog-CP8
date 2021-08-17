@@ -71,10 +71,10 @@ export default {
       async create() {
         try {
           state.newNote.bugId = route.params.id
-          $('#note-modal').modal('toggle')
           await notesService.create(state.newNote)
           state.newNote = {}
           bugsService.getNotesByBugId(route.params.id)
+          $('#note-modal').modal('toggle')
           Pop.toast('Created Successfully', 'success')
         } catch (error) {
           Pop.toast(error, 'error')

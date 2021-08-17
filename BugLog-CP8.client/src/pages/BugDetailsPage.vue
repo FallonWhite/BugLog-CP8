@@ -34,6 +34,12 @@ export default {
   setup() {
     const route = useRoute()
     const router = useRouter()
+    // const state = reactive({
+    //   newNote: {
+    //     body: '',
+    //     bugId: route.params.id
+    //   }
+    // })
     onMounted(async() => {
       try {
         await bugsService.getById(route.params.id)
@@ -43,6 +49,7 @@ export default {
       }
     })
     return {
+      // state,
       bug: computed(() => AppState.activeBug),
       notes: computed(() => AppState.notes),
       async destroy() {
