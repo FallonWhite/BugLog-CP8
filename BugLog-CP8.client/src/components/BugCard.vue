@@ -40,7 +40,7 @@
       </span>
     </div>
   </div>
-  <!-- <BugModal :bug="bugProp" /> -->
+  <BugModal :bug="bugProp" />
   <!-- NOTE I can't test this while page is broken. The inspector erros don't give me enough info to follow to fix error. No success so far on getting time to appear with bug info. I don't understand what's wrong with the code/format. -->
 </template>
 
