@@ -1,12 +1,14 @@
 <template>
   <!-- <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center"> -->
   <div class="container-fluid justify-content-center">
-    <button class="btn btn-success mx-auto" @click="sortBuggs">
-      Filter By Open Bugs
-    </button>
-    <button class="btn btn-danger ml-1" @click="sortBugs">
-      Filter By Closed Bugs
-    </button>
+    <div class="row">
+      <button class="btn-lrg btn-outline-dark btn-success ml-5 mt-1" @click="sortBuggs">
+        <b>Filter By Open Bugs</b>
+      </button>
+      <button class="btn-lrg btn-outline-dark btn-danger ml-5 mt-1" @click="sortBugs">
+        <b>Filter By Closed Bugs</b>
+      </button>
+    </div>
     <div class="row mt-4">
       <div class="col-12">
         <button class="btn-lrg btn-outline-secondary btn-info text-dark mt-5 ml-5 mr-5" data-target="#bug-modal" data-toggle="modal" aria-labelledby="create-bug" aria-label="create-bug">
