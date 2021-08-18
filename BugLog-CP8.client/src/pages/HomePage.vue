@@ -2,10 +2,13 @@
   <!-- <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center"> -->
   <div class="container-fluid justify-content-center">
     <div class="row">
-      <button class="btn-lrg btn-outline-dark btn-success ml-5 mt-1" @click="sortBuggs">
+      <button class="btn-lrg btn-outline-dark btn-success ml-5 mt-1" @click="openBugs">
         <b>Filter By Open Bugs</b>
       </button>
-      <button class="btn-lrg btn-outline-dark btn-danger ml-5 mt-1" @click="sortBugs">
+      <!-- <button class="btn-lrg btn-outline-dark btn-info ml-5 mt-1" @click="getAllBugs">
+        <b>No Filter</b>
+      </button> -->
+      <button class="btn-lrg btn-outline-dark btn-danger ml-5 mt-1" @click="closedBugs">
         <b>Filter By Closed Bugs</b>
       </button>
     </div>
@@ -49,9 +52,9 @@ export default {
       // showOpen: false,
       // showClosed: true
       // add a bool for showOpen: false
-      sortedBuggs: computed(() => AppState.bugs.filter(bug => bug.closed === false)),
-      sortedBugs: computed(() => AppState.bugs.filter(bug => bug.closed === true)),
-      newBug: {}
+      openBugs: computed(() => AppState.bugs.filter(bug => bug.closed === false)),
+      closedBugs: computed(() => AppState.bugs.filter(bug => bug.closed === true))
+      // newBug: {}
     })
     onMounted(async() => {
       try {
@@ -63,11 +66,11 @@ export default {
     return {
       state,
       bugs: computed(() => AppState.bugs),
-      sortBuggs() {
-        AppState.bugs = state.sortedBuggs
+      openBugs() {
+        AppState.bugs = state.openBugs
       },
-      sortBugs() {
-        AppState.bugs = state.sortedBugs
+      closedBugs() {
+        AppState.bugs = state.closedBugs
       }
       // openBugs: computed(() => AppState.bugs.filter(b => b.closed === true)),
       // openBugs: computed(() => AppState.bugs.filter(b => !closed))
