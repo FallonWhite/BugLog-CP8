@@ -5,9 +5,9 @@
       <button class="btn-lrg btn-outline-dark btn-success ml-5 mt-1" @click="openBugs">
         <b>Filter By Open Bugs</b>
       </button>
-      <!-- <button class="btn-lrg btn-outline-dark btn-info ml-5 mt-1" @click="getAllBugs">
+      <button class="btn-lrg btn-outline-dark btn-info ml-5 mt-1" @click="showAllBugs">
         <b>No Filter</b>
-      </button> -->
+      </button>
       <button class="btn-lrg btn-outline-dark btn-danger ml-5 mt-1" @click="closedBugs">
         <b>Filter By Closed Bugs</b>
       </button>
@@ -33,8 +33,21 @@
       <BugCard v-for="b in openBugs" :key="b.id" :bug-prop="b" />
     </div> -->
       <!-- //add v-else to render v-for="b in openBugs" -->
-      <router-view>
-      </router-view>
+      <div class="row">
+        <div class="col-11" v-if="state.closed">
+          <div v-for="b in bugs" :key="b">
+            <BugCard v-if="b.closed" :bug-prop="b" />
+          </div>
+        </div>
+
+        <div class="col-11" v-if="!state.closed">
+          <div v-for="b in bugs" :key="b">
+            <BugCard v-if="!b.closed" :bug-prop="b" />
+          </div>
+        </div>
+        <router-view>
+        </router-view>
+      </div>
     </div>
   </div>
 </template>
@@ -53,8 +66,9 @@ export default {
       // showClosed: true
       // add a bool for showOpen: false
       openBugs: computed(() => AppState.bugs.filter(bug => bug.closed === false)),
-      closedBugs: computed(() => AppState.bugs.filter(bug => bug.closed === true))
-      // newBug: {}
+      // closedBugs: computed(() => AppState.bugs.filter(bug => bug.closed === true))
+      closed: 'none',
+      newBug: {}
     })
     onMounted(async() => {
       try {
@@ -67,10 +81,13 @@ export default {
       state,
       bugs: computed(() => AppState.bugs),
       openBugs() {
-        AppState.bugs = state.openBugs
+        AppState.bugs = false
       },
       closedBugs() {
-        AppState.bugs = state.closedBugs
+        AppState.bugs = true
+      },
+      showAllBugs() {
+        AppState.bugs = 'none'
       }
       // openBugs: computed(() => AppState.bugs.filter(b => b.closed === true)),
       // openBugs: computed(() => AppState.bugs.filter(b => !closed))
