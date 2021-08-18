@@ -8,7 +8,7 @@ class NotesService {
   }
 
   async getAll(query = {}) {
-    return await dbContext.Notes.find(query).populate('creator', 'name picture')
+    return await dbContext.Notes.find(query).populate('creator', 'name picture').populate('bug', '_id')
   }
 
   // async getById(id, userId) {
@@ -30,8 +30,7 @@ class NotesService {
   async destroy(id, user) {
     const note = await this.getById(id)
     if (user.id === note.creatorId.toString()) {
-      await this.getById(id)
-      return await dbContext.Notes.findOneAndDelete({ _id: id, creatorId: user })
+      return await dbContext.Notes.findByIdAndDelete(id)
     }
   }
   // async destroy(noteId, userId) {

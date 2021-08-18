@@ -44,15 +44,15 @@ class BugsService {
       const res = await api.get('api/bugs', id)
       AppState.activeBug = res.data
     } catch (error) {
-      Pop.toast(error, 'ERROR LOADING BUG')
+      Pop.toast(error, 'error')
     }
   }
 
-  async destroy(activeBug, id) {
+  async destroy(id) {
     try {
-      await api.destroy('api/bugs', id)
-      AppState.bugs = AppState.bugs.filter(bug => bug.id !== id)
-      if (activeBug.closed === false) {
+      await api.delete('api/bugs/' + id)
+      // AppState.bugs = AppState.bugs.filter(bug => bug.id !== id)
+      if (AppState.activeBug.closed === false) {
         AppState.activeBug.closed = true
         Pop.toast('Close Successful', 'success')
       } else {

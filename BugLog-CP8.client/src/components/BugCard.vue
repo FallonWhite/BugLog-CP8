@@ -1,6 +1,6 @@
 <template>
-  <div class="card col-12 text-white bg-info mb-3 m-4 mr-3 justify-content-center" style="">
-    <div class="card-header text-center">
+  <div class="card col-11 d-flex text-white bg-info m-5" style="justify-content: space-around">
+    <div class="card-header text-center m-4 ml-4">
       <h5 class="p-2" style="text-align: center; text-shadow: 1px 1px black; background-color: Black">
         <router-link :to="{ name: 'BugDetailsPage', params: {id: bugProp.id } }">
           Bug: {{ bugProp.title }}
@@ -20,9 +20,10 @@
         <b class="text-dark">Description:</b> <br />{{ bugProp.description }}
       </p>
       <span class="bg-dark">Last update: {{ new Date (bugProp.updatedAt).toLocaleString(time) }}</span>
+      <br />
       <span class="bg-dark"> Status:
         <span v-if="bugProp.closed" class="text-light">
-          <span class="text-secondary"></span> 🔒Closed🔒</span>
+          <span class="text-secondary"></span>🔒Closed🔒</span>
         <span v-else class="text-info">
           <span class="text-success"></span> 🐛Open🐜
         </span>
@@ -32,14 +33,13 @@
       <p class="card-text">
         {{ bugProp.closedDate }}
       </p> -->
-        <button v-if="bugProp.creatorId === state.account.id" class="btn-lg btn-outline-dark btn-secondary m-5 p-2" style="" @click="destroy">
+        <button v-if="bugProp.creatorId === state.account.id && bugProp.closed != true" class="btn-lg btn-outline-dark btn-secondary m-5 p-2" style="" @click="destroy">
           <b>Close Bug</b>
         </button>
       </span>
     </div>
   </div>
   <BugModal :bug="bugProp" />
-  <!-- NOTE I can't test this while page is broken. The inspector erros don't give me enough info to follow to fix error. No success so far on getting time to appear with bug info. I don't understand what's wrong with the code/format. -->
 </template>
 
 <script>

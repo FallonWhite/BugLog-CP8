@@ -26,14 +26,21 @@
                      name="title"
                      class="form-control"
                      placeholder="Bug Title..."
+                     required
+                     minlength="5"
+                     maxlength="100"
               >
             </div>
             <div class="form-group">
               <label for="bug.description" class="col-form-label">Description:</label>
               <textarea v-model="state.newBug.description"
+                        type="text"
                         class="form-control"
                         name="description"
                         placeholder="Bug Description..."
+                        required
+                        minlength="5"
+                        maxlength="300"
               ></textarea>
             </div>
             <button type="button" class="btn btn-outline-dark btn-secondary m-2" data-dismiss="modal">

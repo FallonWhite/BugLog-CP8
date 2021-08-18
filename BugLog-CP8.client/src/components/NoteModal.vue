@@ -70,7 +70,7 @@ export default {
       state,
       async create() {
         try {
-          state.newNote.bugId = route.params.id
+          state.newNote.bug = route.params.id
           await notesService.create(state.newNote)
           state.newNote = {}
           bugsService.getNotesByBugId(route.params.id)
