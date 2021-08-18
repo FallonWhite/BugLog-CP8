@@ -1,17 +1,15 @@
 <template>
   <!-- <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center"> -->
   <div class="container-fluid justify-content-center">
-    <div class="row">
-      <button class="btn-lrg btn-outline-dark btn-success ml-5 mt-1" @click="openBugs">
-        <b>Filter By Open Bugs</b>
-      </button>
-      <button class="btn-lrg btn-outline-dark btn-info ml-5 mt-1" @click="showAllBugs">
-        <b>No Filter</b>
-      </button>
-      <button class="btn-lrg btn-outline-dark btn-danger ml-5 mt-1" @click="closedBugs">
-        <b>Filter By Closed Bugs</b>
-      </button>
-    </div>
+    <button class="btn-lrg btn-outline-dark btn-info ml-1 mt-1" @click="showAllBugs">
+      Show All Bugs
+    </button>
+    <button class="btn-lrg btn-outline-dark btn-success ml-1 mt-1" @click="openBugs">
+      Filter By Open Bugs
+    </button>
+    <button class="btn-lrg btn-outline-dark btn-danger ml-1 mt-1" @click="closedBugs">
+      Filter By Closed Bugs
+    </button>
     <div class="row mt-4">
       <div class="col-12">
         <button class="btn-lrg btn-outline-secondary btn-info text-dark mt-5 ml-5 mr-5" data-target="#bug-modal" data-toggle="modal" aria-labelledby="create-bug" aria-label="create-bug">
@@ -25,29 +23,26 @@
     </div>
   </div> -->
 
-    <div class="row">
-      <!-- <div class="col-11" v-if="state.showAll"> -->
-      <BugCard v-for="b in bugs" :key="b.id" :bug-prop="b" />
-      <!-- </div> -->
-      <!-- <div v-else>
-      <BugCard v-for="b in openBugs" :key="b.id" :bug-prop="b" />
-    </div> -->
-      <!-- //add v-else to render v-for="b in openBugs" -->
-      <div class="row">
-        <div class="col-11" v-if="state.closed">
-          <div v-for="b in bugs" :key="b">
-            <BugCard v-if="b.closed" :bug-prop="b" />
-          </div>
-        </div>
+    <div class="col-11" v-if="state.closed === 'none' ">
+      <BugCard v-for="b in bugs" :key="b" :bug-prop="b" />
+    </div>
 
-        <div class="col-11" v-if="!state.closed">
-          <div v-for="b in bugs" :key="b">
-            <BugCard v-if="!b.closed" :bug-prop="b" />
-          </div>
+    <div class="row">
+      <div class="col-11" v-if="state.closed">
+        <div v-for="b in bugs" :key="b">
+          <BugCard v-if="b.closed" :bug-prop="b" />
         </div>
-        <router-view>
-        </router-view>
       </div>
+
+      <div class="col-11" v-if="!state.closed">
+        <div v-for="b in bugs" :key="b">
+          <BugCard v-if="!b.closed" :bug-prop="b" />
+        </div>
+      </div>
+
+      <!-- //add v-else to render v-for="b in openBugs" -->
+      <router-view>
+      </router-view>
     </div>
   </div>
 </template>
@@ -65,8 +60,9 @@ export default {
       // showOpen: false,
       // showClosed: true
       // add a bool for showOpen: false
+      // closedBugs: computed(() => AppState.bugs.filter(bug => bug.closed === true)),
+      // openBugs: computed( () => { ...[AppState.bugs.filter(bug => bug.closed === false)] } ),
       openBugs: computed(() => AppState.bugs.filter(bug => bug.closed === false)),
-      // closedBugs: computed(() => AppState.bugs.filter(bug => bug.closed === true))
       closed: 'none',
       newBug: {}
     })
@@ -81,13 +77,13 @@ export default {
       state,
       bugs: computed(() => AppState.bugs),
       openBugs() {
-        AppState.bugs = false
+        state.closed = false
       },
       closedBugs() {
-        AppState.bugs = true
+        state.closed = true
       },
       showAllBugs() {
-        AppState.bugs = 'none'
+        state.closed = 'none'
       }
       // openBugs: computed(() => AppState.bugs.filter(b => b.closed === true)),
       // openBugs: computed(() => AppState.bugs.filter(b => !closed))

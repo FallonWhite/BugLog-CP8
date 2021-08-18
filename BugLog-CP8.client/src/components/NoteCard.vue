@@ -1,17 +1,17 @@
 <template>
-  <div class="card col-12 text-white bg-info mb-3 m-4 mr-3 justify-content-center" style="">
+  <div class="card col-11 d-flex text-white bg-info m-5" style="justify-content: space-around">
     <div class="card-header text-center">
       <h5 class="p-2" style="text-align: center; text-shadow: 1px 1px black; background-color: Black">
-        {{ noteProp.title }}
+        {{ new Date (noteProp.createdAt).toLocaleString(time) }} - <img class="rounded-circle creator-pic my-1" style="max-width:40px" :src="noteProp.creator?.picture" alt=""> {{ noteProp.creator?.name }}
       </h5>
     </div>
     <div class="card-body">
-      <h5 class="card-title">
+      <!-- <h5 class="card-title">
         <b class="text-dark">Title:</b> {{ noteProp.title }}
-      </h5>
+      </h5> -->
       <span>
-        <img class="rounded-circle creator-pic my-1" :src="noteProp.creator?.picture" alt="">
-        {{ noteProp.creator?.name }}
+
+        <!-- {{ noteProp.creator?.name }} -->
       </span>
       <p class="card-text">
         <b class="text-dark">Info:</b> <br />
