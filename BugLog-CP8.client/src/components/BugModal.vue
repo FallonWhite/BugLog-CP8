@@ -89,7 +89,7 @@ export default {
           state.newBug = {}
           Pop.toast('Bug Creation Successful', 'Success')
         } catch (error) {
-          Pop.toast(error, 'creation error')
+          Pop.toast(error, 'error')
         }
       }
     }

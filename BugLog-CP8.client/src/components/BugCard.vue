@@ -1,6 +1,6 @@
 <template>
   <div class="card col-11 d-flex text-white bg-info m-5" style="justify-content: space-around">
-    <div class="card-header text-center m-4 ml-4">
+    <div class="card-header  m-4 ml-4">
       <h5 class="p-2" style="text-align: center; text-shadow: 1px 1px black; background-color: Black">
         <router-link :to="{ name: 'BugDetailsPage', params: {id: bugProp.id } }">
           Bug: {{ bugProp.title }}
@@ -61,6 +61,7 @@ export default {
     const route = useRoute()
     const state = reactive({
       account: computed(() => AppState.account)
+      //  activeBug: computed(() => AppState.activeBug)
     })
     return {
       state,

@@ -1,15 +1,19 @@
 <template>
   <div class="bugDetailsPage container-fluid">
     <div class="row">
-      <button class="btn-lrg btn-outline-secondary btn-info text-dark m-5" data-target="#note-modal" data-toggle="modal">
+      <button class="btn-lrg btn-outline-secondary btn-info text-dark m-5" data-target="#note-modal" data-toggle="modal" aria-label="addNote" title="addNote">
         <b class="align-center">Add Note</b>
       </button>
+      <!-- <button class="btn-lrg btn-outline-secondary btn-info text-dark m-5" data-target="#edit-bug-modal" data-toggle="modal">
+        <b class="align-center">Edit</b>
+      </button> -->
       <BugCard :bug-prop="bug" v-if="bug.id" />
     </div>
     <div class="row">
       <NoteCard v-for="n in notes" :key="n.id" :note-prop="n" />
     </div>
     <NoteModal :bug-prop="bug" />
+    <!-- <EditBugModal :bug-prop="bug" /> -->
   </div>
 </template>
 
@@ -44,6 +48,7 @@ export default {
       try {
         await bugsService.getById(route.params.id)
         await bugsService.getNotesByBugId(route.params.id)
+        // await bugsService.edit(route.params.id) // added to edit - attempt
       } catch (error) {
         logger.log(error)
       }
@@ -56,6 +61,7 @@ export default {
         try {
           await bugsService.destroy(route.params.id)
           router.push({ name: 'Home' }) // use push to push user back to home after closing bug
+          // await bugsService.edit(route.params.id) // added to edit
         } catch (error) {
           logger.log(error)
         }
