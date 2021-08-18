@@ -1,6 +1,12 @@
 <template>
   <!-- <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center"> -->
   <div class="container-fluid justify-content-center">
+    <button class="btn btn-success mx-auto" @click="sortBuggs">
+      Filter By Open Bugs
+    </button>
+    <button class="btn btn-danger ml-1" @click="sortBugs">
+      Filter By Closed Bugs
+    </button>
     <div class="row mt-4">
       <div class="col-12">
         <button class="btn-lrg btn-outline-secondary btn-info text-dark mt-5 ml-5 mr-5" data-target="#bug-modal" data-toggle="modal" aria-labelledby="create-bug" aria-label="create-bug">
@@ -40,8 +46,10 @@ export default {
     const state = reactive({
       // showOpen: false,
       // showClosed: true
-
       // add a bool for showOpen: false
+      sortedBuggs: computed(() => AppState.bugs.filter(bug => bug.closed === false)),
+      sortedBugs: computed(() => AppState.bugs.filter(bug => bug.closed === true)),
+      newBug: {}
     })
     onMounted(async() => {
       try {
@@ -52,7 +60,13 @@ export default {
     })
     return {
       state,
-      bugs: computed(() => AppState.bugs)
+      bugs: computed(() => AppState.bugs),
+      sortBuggs() {
+        AppState.bugs = state.sortedBuggs
+      },
+      sortBugs() {
+        AppState.bugs = state.sortedBugs
+      }
       // openBugs: computed(() => AppState.bugs.filter(b => b.closed === true)),
       // openBugs: computed(() => AppState.bugs.filter(b => !closed))
       //  add computed for openBugs  appstate.bugs.filter(b => !closed)
